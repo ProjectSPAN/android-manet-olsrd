@@ -399,13 +399,16 @@ olsr_calculate_mpr(void)
   two_hop_count = olsr_calculate_two_hop_neighbors();
   two_hop_covered_count = add_will_always_nodes();
 
-  /*
-   *Calculate MPRs based on WILLINGNESS
-   */
+
+  // Calculate MPRs based on WILLINGNESS.
+  // NOTE: Nodes with higher WILLINGNESS are chosen to be MPRs first.
 
   for (i = WILL_ALWAYS - 1; i > WILL_NEVER; i--) {
     struct neighbor_entry *mprs;
     struct neighbor_2_list_entry *two_hop_list = olsr_find_2_hop_neighbors_with_1_link(i);
+
+    // NOTE: Iterate over two hop neighbor list. For each two hop neighbor get its neighbor list.
+    // Mark next neighbor in list as MPR (initially ensures coverage). Optimize MPRs later.
 
     while (two_hop_list != NULL) {
       struct neighbor_2_list_entry *tmp;
@@ -428,7 +431,7 @@ olsr_calculate_mpr(void)
       olsr_chosen_mpr(mprs, &two_hop_covered_count);
 
       if (two_hop_covered_count >= two_hop_count) {
-        i = WILL_NEVER;
+        i = WILL_NEVER; // NOTE: Break out of main loop.
         break;
       }
 

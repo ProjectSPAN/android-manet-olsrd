@@ -378,6 +378,13 @@ olsr_input_hello(union olsr_message * ser, struct interface * inif, union olsr_i
   if (deserialize_hello(&hello, ser) != 0) {
     return false;
   }
+
+  // check if sender's address is on ignore list; if so, drop message
+  if (is_on_ignore_list(hello.source_addr)) {
+    return false;
+    fprintf(stdout, "Ignoring!\n"); // DEBUG
+  }
+
   olsr_hello_tap(&hello, inif, from);
 
   /* Do not forward hello messages */
@@ -414,9 +421,11 @@ olsr_hello_tap(struct hello_message *message, struct interface *in_if, const uni
 
   /*check alias message->source_addr*/
   if (!ipequal(&message->source_addr,from_addr)){
+
     /*new alias of new neighbour are thrown in the mid table to speed up routing*/
     if (olsr_validate_address(from_addr)) {
       union olsr_ip_addr * main_addr = mid_lookup_main_addr(from_addr);
+
       if ((main_addr==NULL)||(ipequal(&message->source_addr, main_addr))){
         /*struct ipaddr_str srcbuf, origbuf;
         olsr_syslog(OLSR_LOG_INFO, "got hello from unknown alias ip of direct neighbour: ip: %s main-ip: %s",
@@ -427,7 +436,7 @@ olsr_hello_tap(struct hello_message *message, struct interface *in_if, const uni
       else
       {
         struct ipaddr_str srcbuf, origbuf;
-        olsr_syslog(OLSR_LOG_INFO, "got hello with invalid from and originator adress pair (%s, %s) Duplicate Ips?\n",
+        olsr_syslog(OLSR_LOG_INFO, "got hello with invalid from and originator address pair (%s, %s) Duplicate Ips?\n",
                     olsr_ip_to_string(&origbuf,&message->source_addr),
                     olsr_ip_to_string(&srcbuf,from_addr));
       }

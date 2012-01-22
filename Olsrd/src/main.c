@@ -60,6 +60,7 @@
 #include "mpr_selector_set.h"
 #include "gateway.h"
 #include "olsr_niit.h"
+#include "ignore_list.h"
 
 #ifdef LINUX_NETLINK_ROUTING
 #include <linux/types.h>
@@ -1155,6 +1156,15 @@ static int olsr_process_arguments(int argc, char *argv[],
 
     if (strcmp(*argv, "-nofork") == 0) {
       cnf->no_fork = true;
+      continue;
+    }
+
+    if (strcmp(*argv, "-ignore") == 0) {
+      char filename[256];
+      NEXT_ARG;
+      CHECK_ARGC;
+      sscanf(*argv, "%s", filename);
+      olsrd_parse_ignore_list(filename);
       continue;
     }
 
