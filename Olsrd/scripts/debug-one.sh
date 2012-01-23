@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # usage: 
-# ./scripts/debug.sh
+# ./scripts/debug-one.sh
 
 # install first
-./scripts/install.sh
+./scripts/install-one.sh
 
 if [ $? != 0 ]; then
   exit 2

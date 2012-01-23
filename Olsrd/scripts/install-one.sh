@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # usage: 
-# ./scripts/install.sh
+# ./scripts/install-one.sh
 
 # build first
 ./scripts/build.sh
