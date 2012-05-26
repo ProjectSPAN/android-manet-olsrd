@@ -1,8 +1,5 @@
 # build
 
-#SPAN - Smart Phone AdHoc Networking project
-#©2012 The MITRE Corporation
-
 export PATH=/home/dev/Desktop/PROJECTS/ANDROID:$PATH
 export BISON_PKGDATADIR=/home/dev/Desktop/PROJECTS/ANDROID/external/bison/data
 

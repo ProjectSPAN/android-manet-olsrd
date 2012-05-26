@@ -1,0 +1,6 @@
+SPAN - Smart Phone Ad-Hoc Networking project
+Copyright (c) 2012 The MITRE Corporation.
+
+The olsr.org Optimized Link-State Routing daemon(olsrd)
+Copyright (c) 2004, Andreas Tonnesen(andreto@olsr.org)
+                    Thomas Lopatic(thomas@lopatic.de)
