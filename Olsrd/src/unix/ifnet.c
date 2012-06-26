@@ -813,10 +813,15 @@ chk_if_up(struct olsr_if *iface, int debuglvl __attribute__ ((unused)))
     perror("setsockopt(SO_PRIORITY)");
     olsr_syslog(OLSR_LOG_ERR, "OLSRD: setsockopt(SO_PRIORITY) error %m");
   }
-  if (setsockopt(ifp->send_socket, IPPROTO_IP, IP_TOS, (char *)&tos_bits, sizeof(tos_bits)) < 0) {
-    perror("setsockopt(IP_TOS)");
-    olsr_syslog(OLSR_LOG_ERR, "setsockopt(IP_TOS) error %m");
-  }
+
+  // Setting TOS causes the ASUS Transformer Prime to have problems receiving broadcasts
+  #ifndef android
+    if (setsockopt(ifp->send_socket, IPPROTO_IP, IP_TOS, (char *)&tos_bits, sizeof(tos_bits)) < 0) {
+      perror("setsockopt(IP_TOS)");
+      olsr_syslog(OLSR_LOG_ERR, "setsockopt(IP_TOS) error %m");
+    }
+  #endif
+
 #endif
 
   /*

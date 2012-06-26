@@ -4,10 +4,10 @@
 # ./scripts/build.sh
 
 # variables
-aosp_path='/home/dev/Desktop/PROJECTS/ANDROID'
+aosp_path='/home/dev/Desktop/PROJECTS/ANDROID_PLATFORM_GINGERBREAD'
 
 export PATH=$aosp_path:$PATH
-export BISON_PKGDATADIR=$aosp_path/external/bison/data
+# export BISON_PKGDATADIR=$aosp_path/external/bison/data
 
 source $aosp_path/build/envsetup.sh
 
