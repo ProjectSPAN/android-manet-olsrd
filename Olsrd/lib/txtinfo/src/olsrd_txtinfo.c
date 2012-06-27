@@ -335,8 +335,8 @@ ipc_print_neigh(struct autobuf *abuf, bool list_2hop)
   struct neighbor_2_list_entry *list_2;
   int thop_cnt;
 
-  abuf_puts(abuf, "Table: Neighbors\nIP address\tSYM\tMPR\tMPRS\tWill.");
-  if (list_2hop) abuf_puts(abuf,"\n\t2hop interface adrress\n");
+  abuf_puts(abuf, "Table: Neighbors\nIP Address\tSYM\tMPR\tMPRS\tWill.");
+  if (list_2hop) abuf_puts(abuf,"\n\t2 Hop Interface Address\n");
   else abuf_puts(abuf, "\t2 Hop Neighbors\n");
 
   /* Neighbors */
@@ -605,6 +605,8 @@ ipc_print_gateway(struct autobuf *abuf)
         gw->uplink, gw->downlink, v4type, v6type,
         gw->external_prefix.prefix_len == 0 ? NONE : olsr_ip_prefix_to_string(&gw->external_prefix));
   } OLSR_FOR_ALL_GATEWAY_ENTRIES_END(gw)
+
+  abuf_puts(abuf, "\n");
 #endif
 }
 

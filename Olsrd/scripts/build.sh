@@ -16,7 +16,8 @@ success=$?
 
 # copy binary into other project(s)
 # copy will fail if destination dir does not exist
-cp olsrd ../../android-manet-service/AndroidManetService/res/raw
+cp olsrd ../../android-manet-service/AndroidManetService/res/raw/olsrd
+cp lib/txtinfo/olsrd_txtinfo.so.0.1 ../../android-manet-service/AndroidManetService/res/raw/olsrd_txtinfo_so_0_1
 
 if [ $success == 0 ]; then
   echo "Build successful"
